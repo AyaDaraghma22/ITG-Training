@@ -1,0 +1,65 @@
+<!-- Aya Daraghma -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./Task1.css">
+    <script defer src="./Task1.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form id="form" action="#">
+            <h1>Training Form</h1>
+            <div class="input-control">
+                <label for="firstName">First Name</label>
+                <input id="firstName" name="firstName" type="text">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="lastName">Last Name</label>
+                <input id="lastName" name="lastName" type="text">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="phoneNumber">Phone Number</label>
+                <input id="phoneNumber" name="phoneNumber" type="tel">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="text">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="major">Major</label>
+                <input id="major" name="major" type="text">
+                <div class="error"></div>
+            </div>
+            <div class="input-control">
+                <label for="trainingArea">Training Area</label>
+                <select id="trainingArea" name="trainingArea">
+                    <option value="">Select Training Area</option>
+                    <option value="Databases Management">Databases Management</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Web Development">Web Development</option>
+                </select>
+                <div class="error"></div>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Thank You!</h2>
+            <p>Thank you for submitting your information.</p>
+        </div>
+    </div>
+</body>
+</html>
