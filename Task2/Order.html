@@ -1,0 +1,67 @@
+<!-- Aya Daraghma 13/2 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordering</title>
+    <link rel="stylesheet" href="Task2.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>Place Your Order</h1>
+        <form class="order-form" id="order-form">
+            <label for="meal">Choose a Meal:</label>
+            <select id="meal">
+                <option value="">Choose your meal</option>
+                <option value="10">Fried Chicken - $10</option>
+                <option value="20">Pizza - $20</option>
+                <option value="30">Burger - $30</option>
+            </select><br>
+            <label for="notes">Special Notes:</label>
+            <textarea id="notes" placeholder="Add special notes"></textarea><br>
+            <button type="submit" id="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <div class="popup-container" id="popup-container">
+        <p id="popup-message"></p>
+        <button id="close-popup">Close</button>
+    </div>
+<!-- Script for ordering    -->
+    <script>
+        function displayPopup(message) {
+            var popupContainer = document.getElementById('popup-container');
+            var popupMessage = document.getElementById('popup-message');
+            popupMessage.textContent = message;
+            popupContainer.style.display = 'block';
+        }
+
+        function resetFormAndPopup() {
+            document.getElementById("order-form").reset();
+            document.getElementById('popup-container').style.display = 'none';
+        }
+
+        document.getElementById('order-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var username = sessionStorage.getItem('username');
+            var mealName = document.getElementById('meal').options[document.getElementById('meal').selectedIndex].text.split(' - ')[0];
+            var mealPrice = parseFloat(document.getElementById('meal').value);
+            var specialNotes = document.getElementById('notes').value;
+            var total = mealPrice;
+
+            if (specialNotes.trim() !== '') {
+                total += 5;
+            }
+
+            var currentDate = new Date().toLocaleDateString();
+            var receipt = 'Our Customer ' + username + ' have ordered ' + mealName + ' with total price $' + total + ', at the date ' + currentDate + '.';
+
+            displayPopup(receipt);
+        });
+
+        document.getElementById('close-popup').addEventListener('click', resetFormAndPopup);
+    </script>
+
+</body>
+</html>
