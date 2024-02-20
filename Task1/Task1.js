@@ -1,161 +1,105 @@
 //Aya Daraghma
-function resetValidation() {
-    const inputControls = document.querySelectorAll('.input-control');
-    inputControls.forEach(control => {
-        control.classList.remove('success');
+//Function validator in JQuery 
+$(document).ready(function () {
+    $("#form2").validate({
+        rules: {
+            firstName: {
+                minlength: 2,
+                required: true,
+                lettersonly: true
+            },
+            lastName: {
+                minlength: 2,
+                required: true
+            },
+            phoneNumber: {
+                minlength: 10,
+                maxlength: 10,
+                required: true,
+                digits: true
+            },
+            email: {
+                email: true,
+                required: true
+            },
+            major: {
+                minlength: 4,
+                required: true
+            },
+            trainingArea: {
+                required: true
+            }
+        },
+        messages: {
+            firstName: {
+                minlength: "Name should be at least 2 characters",
+                required: "Please enter your first name",
+                lettersonly: "Please enter only letters for the first name"
+
+            },
+            lastName: {
+                minlength: "Last name should be at least 2 characters",
+                required: "Please enter your last name"
+            },
+            phoneNumber: {
+                minlength: "Phone number should be 10 digits",
+                maxlength: "Phone number should be 10 digits",
+                required: "Please enter your phone number",
+                digits: "Please enter only digits"
+            },
+            email: {
+                email: "Please enter a valid email address",
+                required: "Please enter your email address"
+            },
+            major: {
+                minlength: "Major should be at least 4 characters",
+                required: "Please enter your major"
+            },
+            trainingArea: {
+                required: "Please select a training area"
+            }
+        },
+        // make red error and green sucess border according to validation. 
+        highlight: function(element) {
+            $(element).closest('.input-control').addClass('error');
+            $(element).closest('.input-control').removeClass('success');
+        },
+        unhighlight: function(element) {
+            $(element).closest('.input-control').removeClass('error');
+            $(element).closest('.input-control').addClass('success');
+        },
+        // When the form is submitted successfully, show the popup
+        submitHandler: function (form) {
+            $("#popup").removeClass("hidden");           
+             return false;
+        },   errorPlacement: function (error, element) {
+            error.appendTo(element.closest('.input-control'));
+        },
+            // Handler for invalid form submission, focuses on the first invalid element
+        invalidHandler: function (event, validator) {
+            var errors = validator.numberOfInvalids();
+            if (errors) {
+                var firstInvalidElement = $(validator.errorList[0].element);
+                $('html, body').animate({
+            // Find the first invalid element and scroll to it with a 50 pixels offset from the top
+                    scrollTop: firstInvalidElement.offset().top - 50
+                }, 500);
+                firstInvalidElement.focus();
+            }
+        }
     });
-}
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-    document.getElementById('form').reset(); 
-    resetValidation();
-}
 
-function showPopup() {
-    document.getElementById('popup').style.display = 'block';
-}
+         // Add custom method for letters only to first name
+    $.validator.addMethod("lettersonly", function(value, element) {
+        return /^[a-zA-Z]+$/.test(value);});
 
-const form = document.getElementById('form');
-const firstName = document.getElementById('firstName');
-const lastName = document.getElementById('lastName');
-const phoneNumber = document.getElementById('phoneNumber');
-const email = document.getElementById('email');
-const major = document.getElementById('major');
-const trainingArea = document.getElementById('trainingArea');
-
-form.addEventListener('submit', e => {
-    e.preventDefault();
-    validateInputs();
+         // Reset form and remove borders on close after a short delay
+    window.closePopup = function () {
+        $("#popup").addClass("hidden");
+        setTimeout(function () {
+            $("#form2")[0].reset();
+            $(".input-control input, .input-control select").css('border-color', '#f0f0f0');
+            $("#form2").validate().resetForm();
+        }, 100);
+    };
 });
-
-const setError = (element, message) => {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
-
-    errorDisplay.innerText = message;
-    inputControl.classList.add('error');
-    inputControl.classList.remove('success');
-};
-
-const setSuccess = element => {
-    const inputControl = element.parentElement;
-    const errorDisplay = inputControl.querySelector('.error');
-
-    errorDisplay.innerText = '';
-    inputControl.classList.add('success');
-    inputControl.classList.remove('error');
-};
-
-const scrollToError = () => {
-    const errorElement = document.querySelector('.input-control.error input');
-    if (errorElement) {
-        errorElement.focus();
-    }
-};
-
-
-const isValidEmail = email => {
-    const re = /^[^\d\s][^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-};
-const isValidFirstName = firstName => {
-    const re = /^[A-Za-z]+$/;
-    return re.test(firstName);
-};
-const isValidLastName = lastName => {
-    const re = /^[A-Za-z]+$/;
-    return re.test(lastName);
-};
-const isValidPhoneNumber = phoneNumber => {
-    const re = /^\d{10}$/;
-    return re.test(phoneNumber);
-};
-const isValidMajor = major => {
-    const re = /^[A-Za-z\s]+$/;
-    return re.test(major);
-};
-
-const validateInputs = () => {
-    const firstNameValue = firstName.value.trim();
-    const lastNameValue = lastName.value.trim();
-    const phoneNumberValue = phoneNumber.value.trim();
-    const emailValue = email.value.trim();
-    const majorValue = major.value.trim();
-    const trainingAreaValue = trainingArea.value;
-
-    let allFieldsValid = true; 
-
-    // Validate first name
-    if (firstNameValue === '') {
-        setError(firstName, 'First Name is required');
-        allFieldsValid = false;
-    } else if (!isValidFirstName(firstNameValue)) {
-        setError(firstName, 'First Name must contain only alphabetic characters');
-        allFieldsValid = false;
-    } else {
-        setSuccess(firstName);
-    }
-
-// Validate last name
-    if (lastNameValue === '') {
-        setError(lastName, 'Last Name is required');
-        allFieldsValid = false;
-    } else if (!isValidLastName(lastNameValue)) {
-        setError(lastName, 'Last Name must contain only alphabetic characters');
-        allFieldsValid = false;
-    } else {
-        setSuccess(lastName);
-    }
-
-// Validate Phone#
-    if (phoneNumberValue === '') {
-        setError(phoneNumber, 'Phone Number is required');
-        allFieldsValid = false;
-    } else if (!isValidPhoneNumber(phoneNumberValue)) {
-        setError(phoneNumber, 'Phone Number must contain exactly 10 numeric digits');
-        allFieldsValid = false;
-    } else {
-        setSuccess(phoneNumber);
-    }
-
-// Validate email
-    if (emailValue === '') {
-        setError(email, 'Email is required');
-        allFieldsValid = false;
-    } else if (!isValidEmail(emailValue)) {
-        setError(email, 'Provide a valid email address');
-        allFieldsValid = false;
-    } else if (/^\d/.test(emailValue)) { // Check if email starts with a digit
-        setError(email, 'Email cannot start with a number');
-        allFieldsValid = false;
-    } else {
-        setSuccess(email);
-    }
-
-// Validate major
-    if (majorValue === '') {
-        setError(major, 'Major is required');
-        allFieldsValid = false;
-    } else if (!isValidMajor(majorValue)) {
-        setError(major, 'Major must contain only alphabetic characters');
-        allFieldsValid = false;
-    } else {
-        setSuccess(major);
-    }
-//Training area
-    if (trainingAreaValue === '') {
-        setError(trainingArea, 'Training Area is required');
-        allFieldsValid = false;
-    } else {
-        setSuccess(trainingArea);
-    }
-
-   
-    if (allFieldsValid) {
-        showPopup();
-    }
-    if (!allFieldsValid) {
-        scrollToError();
-    }
-};
-document.getElementById('closePopupBtn').addEventListener('click', closePopup);

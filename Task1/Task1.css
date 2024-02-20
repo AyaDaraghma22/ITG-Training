@@ -5,7 +5,7 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-#form {
+#form2 {
     width: 500px;
     margin: 10vh auto 0 auto;
     padding: 30px;
@@ -16,7 +16,7 @@ body {
 }
 
 
-#form h1 {
+#form2 h1 {
     color: #0f2027;
     text-align: center;
    margin-bottom: 20px;
@@ -25,12 +25,12 @@ body {
     
 }
 
-#form button {
+#form2 input[type="submit"] {
     padding: 10px;
     margin-top: 10px;
     width: 100%;
     color: white;
-    background-color:green;
+    background-color: green;
     border: none;
     border-radius: 4px;
 }
@@ -107,3 +107,6 @@ body {
     display: none;
 }
 
+.popup:not(.hidden) {
+    display: block;
+}
