@@ -1,0 +1,87 @@
+<!-- Aya Daraghma 13/2 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordering</title>
+    <link rel="stylesheet" href="./Task2.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <h1>Place Your Order</h1>
+        <form class="order-form" id="order-form">
+            <label for="meal">Choose a Meal:</label>
+            <select id="meal">
+                <option value="">Choose your meal</option>
+                <option value="10">Fried Chicken - $10</option>
+                <option value="20">Pizza - $20</option>
+                <option value="30">Burger - $30</option>
+            </select><br>
+            <label for="notes">Special Notes:</label>
+            <textarea id="notes" placeholder="Add special notes"></textarea><br>
+            <button type="submit" id="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <div class="popup-container" id="popup-container">
+        <p id="popup-message"></p>
+        <button id="close-popup">Close</button>
+    </div>
+
+    <!-- Script for ordering    -->
+<!-- Script for ordering -->
+<script>
+    $(document).ready(function () {
+        // Retrieve the username from sessionStorage
+        var username = sessionStorage.getItem('username');
+        $('#order-form').validate({
+            rules: {
+                meal: {
+                    required: true
+                }
+            },
+            messages: {
+                meal: {
+                    required: "Please choose your meal"
+                }
+            },
+            submitHandler: function (form) {
+                var mealName = $('#meal option:selected').text().split(' - ')[0];
+                var mealPrice = parseFloat($('#meal').val());
+                var specialNotes = $('#notes').val();
+                var total = mealPrice;
+
+                if (specialNotes.trim() !== '') {
+                    total += 5;
+                }
+
+                var currentDate = new Date().toLocaleDateString();
+                var receipt = 'Our Customer ' + username + ' have ordered ' + mealName + ' with total price $' + total + ', at the date ' + currentDate + '.';
+
+                displayPopup(receipt);
+            }
+        });
+
+        $('#close-popup').click(function () {
+            resetFormAndPopup();
+            window.location.href = 'index.html'; // Redirect to Order.html
+        });
+
+        function displayPopup(message) {
+            $('#popup-message').text(message);
+            $('#popup-container').show();
+        }
+
+        function resetFormAndPopup() {
+            $('#order-form').trigger('reset');
+            $('#popup-container').hide();
+        }
+    });
+</script>
+
+
+</body>
+</html>

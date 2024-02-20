@@ -1,4 +1,3 @@
-<!-- Aya Daraghma -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./Task1.css">
-    <script defer src="./Task1.js"></script>
 </head>
+
 <body>
     <div class="container">
-        <form id="form" action="#">
+        <form name="form2" id="form2" action="#">
             <h1>Training Form</h1>
+
             <div class="input-control">
                 <label for="firstName">First Name</label>
-                <input id="firstName" name="firstName" type="text">
+                <input id="firstName" name="firstName"  type="text">
                 <div class="error"></div>
             </div>
             <div class="input-control">
@@ -51,9 +51,10 @@
                 </select>
                 <div class="error"></div>
             </div>
-            <button type="submit">Submit</button>
+            <input type="submit" value="Submit">
         </form>
     </div>
+
     <div id="popup" class="popup hidden">
         <div class="popup-content">
             <span class="close-btn" onclick="closePopup()">&times;</span>
@@ -61,5 +62,9 @@
             <p>Thank you for submitting your information.</p>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="./Task1.js"></script>
 </body>
 </html>

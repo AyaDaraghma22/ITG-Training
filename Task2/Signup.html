@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="./Task2.css">
+    <!-- Include jQuery and jQuery Validation plugin -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script defer src="./Task2.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <form id="signup-form">
+            <h1>Create Account</h1>
+            <div class="input-control">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Username">
+                <div class="error"></div>
+
+
+            </div>
+            <div class="input-control">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Email">
+                <div class="error"></div>
+
+            </div>
+            <div class="input-control">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Password">
+                <div class="error"></div>
+
+            </div>
+            <div class="input-control">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                <div class="error"></div>
+
+            </div>
+            <button type="submit" id="submit-btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
